@@ -5,6 +5,7 @@ export interface Repo {
   url: string;
   repositoryTopics: RepositoryTopics;
   owner: Owner;
+  cursor:string;
 }
 
 export interface RepositoryTopics {
