@@ -30,7 +30,7 @@ const StyledPaginateButton = styled(Button)({
   },
 });
 
-const GITHUB_API_TOKEN = "Bearer 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";
+const GITHUB_API_TOKEN = "Bearer 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";
 const GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql";
 
 const SEARCH_REPOSITORIES_QUERY = `query SearchRepositories($query: String!, $perPage: Int!, $after: String) {
@@ -143,7 +143,8 @@ const Listing: React.FC = () => {
     page?: number
   ) => {
     setLoading(true);
-
+    console.log(query, isSearch,"check");
+    
     if (query.trim() === "") {
       setLoading(false);
       return;
