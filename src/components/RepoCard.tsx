@@ -77,14 +77,14 @@ const RepoCard: React.FC<RepoProps> = (props) => {
     onRatingChange,
     handleRemoveFav,
   } = props;
-  
+
   const [rating, setRating] = useState<number | null>(props.rating || null);
   useEffect(() => {
     if (props.rating !== undefined) {
       setRating(props.rating);
     }
   }, [props.rating]);
-  
+
   return (
     <StyledCard>
       {handleRemoveFav && (
@@ -94,10 +94,10 @@ const RepoCard: React.FC<RepoProps> = (props) => {
       )}
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt={item?.name} src={item?.owner?.avatar_url} />
+          <Avatar alt={item?.name} src={item?.owner?.avatarUrl} />
         </ListItemAvatar>
         <ListItemText
-          primary={item?.full_name}
+          primary={item?.name}
           secondary={
             <React.Fragment>
               <Typography
@@ -115,8 +115,9 @@ const RepoCard: React.FC<RepoProps> = (props) => {
                 {item?.description || ""}
               </Typography>
               <Stack direction="row" spacing={1} sx={{ overflowX: "scroll" }}>
-                {item?.topics?.map((topic) => (
-                  <Chip label={topic} />
+                {/* console.log(item?.repositoryTopics?.nodes[0]?.topic?.name); */}
+                {item?.repositoryTopics?.nodes?.map((topic: any) => (
+                  <Chip key={topic.topic.name} label={topic.topic.name} />
                 ))}
               </Stack>
             </React.Fragment>
@@ -137,13 +138,14 @@ const RepoCard: React.FC<RepoProps> = (props) => {
           <Rating
             name={`rating-${item.id}`}
             value={rating}
-            onChange={(event, newValue) =>{
-              newValue !== null && onRatingChange?.(newValue)
+            onChange={(event, newValue) => {
+              newValue !== null && onRatingChange?.(newValue);
               setRating(newValue);
             }}
             getLabelText={getLabelText}
           />
         )}
+
         {rating !== null && rating !== undefined && (
           <Box sx={{ ml: 2 }}>{labels[rating]}</Box>
         )}

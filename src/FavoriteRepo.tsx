@@ -4,6 +4,16 @@ import { STORAGE } from "./app/services/sessionStorage.services";
 import RepoCard from "./components/RepoCard";
 import { Repo } from "./app/interfaces/repo";
 import GithubSvg from "./app/assets/GithubSvg";
+import { Link } from "react-router-dom";
+import { styled } from "@mui/system";
+
+const StyledLink = styled(Link)({
+  position:"absolute",
+  top:"22%",
+  left:"3%",
+  cursor: "pointer",
+  color:"#009aff"
+});
 
 const FavoriteRepo: React.FC = () => {
     const [favRepo, setFavRepo] = useState<Repo[]>(STORAGE.get("favorite", { parse: true }) || []);
@@ -44,7 +54,10 @@ const FavoriteRepo: React.FC = () => {
         <Box sx={{ bgcolor: "#0e1117", minHeight: "100vh" }} className="main">
           <Box sx={{ marginBottom: "20px" }}>
             <GithubSvg />
-            <Typography variant="h5">Favorite Repository</Typography>
+            <Box className="heading">
+              <Typography variant="h5">Favorite Repository</Typography>
+              <StyledLink to="/">Back</StyledLink>
+            </Box>
           </Box>
           <Grid
             container
