@@ -56,7 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, isLoading, queryInp
   const debouncedSearch = useCallback(
     debounce((value: string) => {
       handleSearch(value,true);
-    }, 300),
+    }, 700),
     [handleSearch]
   );
 
@@ -88,7 +88,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, isLoading, queryInp
           id="search-input"
           value={searchInput}
           onChange={handleOnChangeInput}
-          placeholder="Search Github"
+          placeholder="Search Github Repository's"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

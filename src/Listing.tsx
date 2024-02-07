@@ -30,8 +30,8 @@ const StyledPaginateButton = styled(Button)({
   },
 });
 
-const GITHUB_API_TOKEN = "Bearer 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";
-const GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql";
+const apiToken = process.env.REACT_APP_GITHUB_API_TOKEN;
+const graphqlEndpoint = process.env.REACT_APP_GITHUB_GRAPHQL_ENDPOINT;
 
 const SEARCH_REPOSITORIES_QUERY = `query SearchRepositories($query: String!, $perPage: Int!, $after: String) {
   search(query: $query, type: REPOSITORY, first: $perPage, after: $after) {
@@ -109,27 +109,30 @@ const Listing: React.FC = () => {
       return { items: [], total_count: 0 };
     }
     try {
-
-      const response = await fetch(GITHUB_GRAPHQL_ENDPOINT, {
-        method: "POST",
-        headers: {
-          Authorization: GITHUB_API_TOKEN,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: SEARCH_REPOSITORIES_QUERY,
-          variables: {
-            query: query,
-            perPage: perPage,
-            after: after,
+      if(graphqlEndpoint){
+        const response = await fetch(graphqlEndpoint, {
+          method: "POST",
+          headers: {
+            Authorization: apiToken ? `Bearer ${apiToken}` : '',
+            "Content-Type": "application/json",
           },
-        }),
-      });
-
-      const responseData = await response.json();
-      const parsedData = parseGraphQLResponse(responseData);
-      setAfter((prevAfter) => parsedData.newAfter || prevAfter);
-      return parsedData;
+          body: JSON.stringify({
+            query: SEARCH_REPOSITORIES_QUERY,
+            variables: {
+              query: query,
+              perPage: perPage,
+              after: after,
+            },
+          }),
+        });
+  
+        const responseData = await response.json();
+        const parsedData = parseGraphQLResponse(responseData);
+        setAfter((prevAfter) => parsedData.newAfter || prevAfter);
+        return parsedData;
+      }else{
+        return { items: [], total_count: 0 }; 
+      }
     } catch (error) {
       console.error("error: " + error);
       return { items: [], total_count: 0 };
@@ -140,10 +143,11 @@ const Listing: React.FC = () => {
   const handleSearch = async (
     query: string,
     isSearch: boolean = false,
-    page?: number
+    page?: number,
+    after?:string | null
   ) => {
     setLoading(true);
-    console.log(query, isSearch,"check");
+    console.log(after,"check");
     
     if (query.trim() === "") {
       setLoading(false);
@@ -152,7 +156,7 @@ const Listing: React.FC = () => {
 
     try {
       if (isSearch) {
-        const data = await fetchRepositories(query, page ? page : 1, perPage);
+        const data = await fetchRepositories(query, page ? page : 1, perPage, after);
         setRepos({
           items: data.items,
           total_count: data.total_count,
@@ -175,12 +179,13 @@ const Listing: React.FC = () => {
   };
 
   useEffect(() => {
-    handleSearch("", false);
-  }, [location.pathname]);
+    if (location.pathname !== '/favorites') { 
+      handleSearch(storedQuery || "", true, page, after);
+    }else{
+      handleSearch("", false);
+    }
+  }, [location.pathname, page]);
 
-  useEffect(() => {
-    handleSearch(storedQuery || "", true, page);
-  }, [page]);
 
   //   handle add to fav
   const handleAddToFav = (item: Repo) => {
