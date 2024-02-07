@@ -147,8 +147,6 @@ const Listing: React.FC = () => {
     after?:string | null
   ) => {
     setLoading(true);
-    console.log(after,"check");
-    
     if (query.trim() === "") {
       setLoading(false);
       return;

@@ -1,46 +1,84 @@
-# Getting Started with Create React App
+Git Repo Search App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Git Repo Search is a simple web application built using React, TypeScript, and Material-UI that allows users to search for repositories on GitHub by username.
 
-## Available Scripts
 
-In the project directory, you can run:
+Features
+
+Search for repositories by username
+
+View repository details including name, description, language, and number of stars
+
+Responsive design for optimal viewing on desktop and mobile devices
+
+
+Tech Stack
+
+React: A JavaScript library for building user interfaces
+
+TypeScript: A statically typed superset of JavaScript
+
+Material-UI: A popular React UI framework
+
+GitHub API: Used to fetch repository data# Getting Started with Create React App
+
+
+
+
+Getting Started
+
+To get started with the Git Repo Search App, follow these steps:
+
+
+1. Clone the repository:
+
+Copy code
+
+### `git clone https://github.com/Nandan3399/git-reposearch-app.git`
+
+
+2. Install dependencies:
+
+### `npm install`
+
+
+3. Create a .env file in the root directory with the following content:
+
+### `REACT_APP_GITHUB_API_TOKEN=your-github-api-key`
+### `REACT_APP_GITHUB_GRAPHQL_ENDPOINT=https://api.github.com/graphql`
+
+
+Replace your-github-api-key with your actual GitHub API key.
+
+
+4. Start the development server:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+5. Open the app in your browser at `http://localhost:3000`.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Contributing
 
-### `npm run build`
+We welcome contributions to the Git Repo Search App! To get started, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Fork the repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Create a new branch for your feature or bugfix
 
-### `npm run eject`
+Make your changes and commit them
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Push your changes to your forked repository
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Open a pull request against the original repository
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+License
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The Git Repo Search App is open-source software licensed under the MIT License.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Contact
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+For any questions or concerns, please contact the maintainers at nandan3399@gmail.com.
